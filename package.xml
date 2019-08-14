@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package>
+    <name>PaypalUseractionCommit</name>
+    <version>1.0.0</version>
+    <stability>stable</stability>
+    <license uri="http://opensource.org/licenses/MIT">MIT</license>
+    <channel>community</channel>
+    <extends/>
+    <summary>Removes the papyal express order review page.</summary>
+    <description>This extension removes the papyal express order review page.</description>
+    <notes>First stable release.</notes>
+    <authors><author><name>David Danier</name><user>team23</user><email>info@team23.de</email></author></authors>
+    <date>2014-03-27</date>
+    <time>17:15:28</time>
+    <contents><target name="magecommunity"><dir name="Team23"><dir name="PaypalUseractionCommit"><dir name="Model"><file name="Config.php" hash="ee269220ac9d06d33c3a16f86613294b"/></dir><dir name="controllers"><file name="ExpressController.php" hash="ab99b6378756b86d4c9d20e5be818949"/></dir><dir name="etc"><file name="config.xml" hash="e8d3ab4610aadf6e8449756b6c9b9af8"/></dir></dir></dir></target><target name="mageetc"><dir name="modules"><file name="Team23_PaypalUseractionCommit.xml" hash="9ce0b2a8add1103fe9aad0440a679525"/></dir></target></contents>
+    <compatible/>
+    <dependencies><required><php><min>5.1.0</min><max>6.0.0</max></php><package><name>Mage_Core_Modules</name><channel>community</channel><min>1.6.0.0</min><max>1.8.1.0</max></package></required></dependencies>
+</package>

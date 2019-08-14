@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+
+<!--
+/**
+ * Team23_PaypalUseractionCommit
+ *
+ * @category  Team23
+ * @package   Team23_PaypalUseractionCommit
+ * @version   1.0.0
+ * @copyright 2014 Team23 GmbH & Co. KG (http://www.team23.de)
+ * @license   http://opensource.org/licenses/MIT The MIT License (MIT)
+ */
+-->
+
+<config>
+    <modules>
+        <Team23_PaypalUseractionCommit>
+            <version>1.0.0</version>
+        </Team23_PaypalUseractionCommit>
+    </modules>
+    <global>
+        <models>
+            <paypal>
+                <rewrite>
+                    <config>Team23_PaypalUseractionCommit_Model_Config</config>
+                </rewrite>
+            </paypal>
+        </models>
+    </global>
+    <frontend>
+        <routers>
+            <paypal>
+                <args>
+                    <modules>
+                        <Team23_PaypalUseractionCommit before="Mage_Paypal">Team23_PaypalUseractionCommit</Team23_PaypalUseractionCommit>
+                    </modules>
+                </args>
+            </paypal>
+        </routers>
+    </frontend>
+</config>

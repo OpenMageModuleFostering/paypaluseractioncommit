@@ -1,0 +1,16 @@
+{
+    "name": "OpenMageModuleFostering/PaypalUseractionCommit",
+    "type": "magento-module",
+    "license": "MIT",
+    "homepage": "",
+    "description": "Removes the papyal express order review page.",
+    "authors": [
+    {
+        "name": "David Danier",
+        "email": "info@team23.de"
+    }
+],
+    "suggest": {
+        "magento-hackathon/magento-composer-installer": "*"
+    }
+}

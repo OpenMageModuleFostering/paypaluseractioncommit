@@ -5,7 +5,7 @@
  *
  * @category  Team23
  * @package   Team23_PaypalUseractionCommit
- * @version   1.0.0
+ * @version   1.0.1
  * @copyright 2014 Team23 GmbH & Co. KG (http://www.team23.de)
  * @license   http://opensource.org/licenses/MIT The MIT License (MIT)
  */
@@ -77,77 +77,84 @@ class Team23_PaypalUseractionCommit_ExpressController extends Mage_Paypal_Expres
      */
     public function returnAction()
     {
-        try {
-            $this->_initCheckout();
+        if (Mage::helper('Team23_PaypalUseractionCommit')->isActive())
+        {
+            try {
+                $this->_initCheckout();
 
-            // Call GetExpressCheckoutDetails
-            $this->_checkout->returnFromPaypal($this->_initToken());
+                // Call GetExpressCheckoutDetails
+                $this->_checkout->returnFromPaypal($this->_initToken());
 
-            // COPY OF placeOrderAction, without agreement check
-            $this->_checkout->place($this->_initToken());
+                // COPY OF placeOrderAction, without agreement check
+                $this->_checkout->place($this->_initToken());
 
-            // prepare session to success or cancellation page
-            $session = $this->_getCheckoutSession();
+                // prepare session to success or cancellation page
+                $session = $this->_getCheckoutSession();
 
-            $session->clearHelperData();
+                $session->clearHelperData();
 
-            // "last successful quote"
-            $quoteId = $this->_getQuote()->getId();
+                // "last successful quote"
+                $quoteId = $this->_getQuote()->getId();
 
-            $session->setLastQuoteId($quoteId)->setLastSuccessQuoteId($quoteId);
+                $session->setLastQuoteId($quoteId)->setLastSuccessQuoteId($quoteId);
 
-            // an order may be created
-            $order = $this->_checkout->getOrder();
+                // an order may be created
+                $order = $this->_checkout->getOrder();
 
-            if ($order)
-            {
-                $session->setLastOrderId($order->getId())
-                    ->setLastRealOrderId($order->getIncrementId());
+                if ($order)
+                {
+                    $session->setLastOrderId($order->getId())
+                        ->setLastRealOrderId($order->getIncrementId());
 
-                // as well a billing agreement can be created
-                $agreement = $this->_checkout->getBillingAgreement();
+                    // as well a billing agreement can be created
+                    $agreement = $this->_checkout->getBillingAgreement();
 
-                if ($agreement)
-                    $session->setLastBillingAgreementId($agreement->getId());
-            }
+                    if ($agreement)
+                        $session->setLastBillingAgreementId($agreement->getId());
+                }
 
-            // recurring profiles may be created along with the order or without it
-            $profiles = $this->_checkout->getRecurringPaymentProfiles();
+                // recurring profiles may be created along with the order or without it
+                $profiles = $this->_checkout->getRecurringPaymentProfiles();
 
-            if ($profiles)
-            {
-                $ids = array();
+                if ($profiles)
+                {
+                    $ids = array();
 
-                foreach($profiles as $profile)
-                    $ids[] = $profile->getId();
+                    foreach($profiles as $profile)
+                        $ids[] = $profile->getId();
 
-                $session->setLastRecurringProfileIds($ids);
-            }
+                    $session->setLastRecurringProfileIds($ids);
+                }
 
-            // redirect if PayPal specified some URL (for example, to Giropay bank)
-            $url = $this->_checkout->getRedirectUrl();
+                // redirect if PayPal specified some URL (for example, to Giropay bank)
+                $url = $this->_checkout->getRedirectUrl();
 
-            if ($url)
-            {
-                $this->getResponse()->setRedirect($url);
+                if ($url)
+                {
+                    $this->getResponse()->setRedirect($url);
+
+                    return;
+                }
+
+                $this->_initToken(false); // no need in token anymore
+                $this->_redirect('checkout/onepage/success');
 
                 return;
             }
+            catch (Mage_Core_Exception $e) {
+                Mage::getSingleton('checkout/session')->addError($e->getMessage());
+            }
+            catch (Exception $e) {
+                Mage::getSingleton('checkout/session')->addError($this->__('Unable to process Express Checkout approval.'));
+                Mage::logException($e);
+            }
 
-            $this->_initToken(false); // no need in token anymore
-            $this->_redirect('checkout/onepage/success');
-
-            return;
+            $this->_redirect('checkout/cart');
         }
-        catch (Mage_Core_Exception $e) {
-            Mage::getSingleton('checkout/session')->addError($e->getMessage());
+        else
+        {
+            parent::returnAction();
         }
-        catch (Exception $e) {
-            Mage::getSingleton('checkout/session')->addError($this->__('Unable to process Express Checkout approval.'));
-            Mage::logException($e);
-        }
-
-        $this->_redirect('checkout/cart');
     }
 
 }

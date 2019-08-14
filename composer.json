@@ -1,9 +1,9 @@
 {
     "name": "OpenMageModuleFostering/PaypalUseractionCommit",
     "type": "magento-module",
-    "license": "MIT",
+    "license": "MITL",
     "homepage": "",
-    "description": "Removes the papyal express order review page.",
+    "description": "This extension removes the order review page from PayPal Express and redirects directly to order success page.",
     "authors": [
     {
         "name": "David Danier",

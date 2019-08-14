@@ -1,18 +1,26 @@
 <?xml version="1.0"?>
 <package>
     <name>PaypalUseractionCommit</name>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <stability>stable</stability>
-    <license uri="http://opensource.org/licenses/MIT">MIT</license>
+    <license uri="http://opensource.org/licenses/MIT">MITL</license>
     <channel>community</channel>
     <extends/>
-    <summary>Removes the papyal express order review page.</summary>
-    <description>This extension removes the papyal express order review page.</description>
-    <notes>First stable release.</notes>
-    <authors><author><name>David Danier</name><user>team23</user><email>info@team23.de</email></author></authors>
-    <date>2014-03-27</date>
-    <time>17:15:28</time>
-    <contents><target name="magecommunity"><dir name="Team23"><dir name="PaypalUseractionCommit"><dir name="Model"><file name="Config.php" hash="ee269220ac9d06d33c3a16f86613294b"/></dir><dir name="controllers"><file name="ExpressController.php" hash="ab99b6378756b86d4c9d20e5be818949"/></dir><dir name="etc"><file name="config.xml" hash="e8d3ab4610aadf6e8449756b6c9b9af8"/></dir></dir></dir></target><target name="mageetc"><dir name="modules"><file name="Team23_PaypalUseractionCommit.xml" hash="9ce0b2a8add1103fe9aad0440a679525"/></dir></target></contents>
+    <summary>This extension removes the order review page from PayPal Express and redirects directly to order success page.</summary>
+    <description>When ordering using PayPal Express in Magento, it takes the customer to PayPal, PayPal already displays a confirmation, the customer confirms, and get redirected to another confirmation page (/paypal/express/review). This is an extra step that is unnecessary for user experience.&#xD;
+&#xD;
+This extension removes the PayPal Express review page (/paypal/express/review) by adding "useraction =&gt; commit" to PayPal URL. Your customer will directly redirected to your success page after paying on PayPal. On PayPal side, the button now displays "Pay" instead of "Continue".&#xD;
+&#xD;
+This extension extends the PayPal module from Magento.&#xD;
+&#xD;
+Caution: The extension disables the agreements. If these are required for your shop, you have to integrate them before the customer gets redirected to PayPal!&#xD;
+&#xD;
+This module is licensed under the MIT license.</description>
+    <notes>Added possibility to disable extension in Magento backend.</notes>
+    <authors><author><name>David Danier</name><user>team23</user><email>info@team23.de</email></author><author><name>Marc Rochow</name><user>team23</user><email>info@team23.de</email></author></authors>
+    <date>2014-04-08</date>
+    <time>09:42:11</time>
+    <contents><target name="magecommunity"><dir name="Team23"><dir name="PaypalUseractionCommit"><dir name="Helper"><file name="Data.php" hash="d1ae11ffc3a8bc20f97024c4b8768ad4"/></dir><dir name="Model"><file name="Config.php" hash="24eee20224e2f4a31d4d09c7078edf3d"/></dir><dir name="controllers"><file name="ExpressController.php" hash="98fcb267177c56a1dbe292cb8b4e75c8"/></dir><dir name="etc"><file name="adminhtml.xml" hash="7cdf7e7ec0a4b59279c372913b43a658"/><file name="config.xml" hash="34b73b415bda7b0a7e86505c27192f16"/><file name="system.xml" hash="c178dba0acbaf65dd3cbf0d52fe203ba"/></dir></dir></dir></target><target name="mageetc"><dir name="modules"><file name="Team23_PaypalUseractionCommit.xml" hash="b85d9fc3d3821d583670ee14aa59eb8c"/></dir></target></contents>
     <compatible/>
-    <dependencies><required><php><min>5.1.0</min><max>6.0.0</max></php><package><name>Mage_Core_Modules</name><channel>community</channel><min>1.6.0.0</min><max>1.8.1.0</max></package></required></dependencies>
+    <dependencies><required><php><min>5.2.0</min><max>6.0.0</max></php><package><name>Mage_Core_Modules</name><channel>community</channel><min>1.6.0.0</min><max>1.8.1.0</max></package></required></dependencies>
 </package>

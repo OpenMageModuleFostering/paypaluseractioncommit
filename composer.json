@@ -1,16 +1,19 @@
 {
-    "name": "OpenMageModuleFostering/PaypalUseractionCommit",
+    "name": "OpenMageModuleFostering\/PaypalUseractionCommit",
     "type": "magento-module",
     "license": "MITL",
     "homepage": "",
     "description": "This extension removes the order review page from PayPal Express and redirects directly to order success page.",
     "authors": [
-    {
-        "name": "David Danier",
-        "email": "info@team23.de"
-    }
-],
+        {
+            "name": "David Danier",
+            "email": "info@team23.de"
+        }
+    ],
     "suggest": {
-        "magento-hackathon/magento-composer-installer": "*"
-    }
+        "magento-hackathon\/magento-composer-installer": "*"
+    },
+    "keywords": [
+        "openmage-module"
+    ]
 }
